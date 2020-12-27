@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <title>Websockets</title>
+</head>
+<body>
+    <h3>LED CONTROL</h3>
+      <p id='LED_status'>LED is off</p>
+      <button onclick="sendText()">Turn on the LED</button><br>
+	  
+  <input type="text" id="fname" name="fname"><br><br>
+  <div id="costy"></div>
+</body>
+ 
+<script>
+var Socket = new WebSocket('ws://192.168.4.1:81/');
+ 
+  function sendText()
+  {
+    var x=document.getElementById("fname").value;
+    Socket.send(x);
+  }
+  
+  Socket.onmessage = function(e){
+   var server_message = e.data;
+   //console.log(server_message);
+   document.getElementById("costy").innerHTML=server_message;
+}
+ 
+</script>
+</html>
